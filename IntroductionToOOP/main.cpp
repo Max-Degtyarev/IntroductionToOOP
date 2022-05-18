@@ -65,15 +65,29 @@ public:
 
 
 	//					Operators
-	Point operator = (const Point& other)
+	Point& operator = (const Point& other)
 	{
 		this->x = other.x;
 		this->y = other.y;
-		cout << "CopyAssingment:\t" << this << endl;
+		cout << "CopyAssingment:\t\t" << this << endl;
 		return *this;
 
 	}
 
+	Point& operator++()
+	{
+		x++;
+		y++;
+		return *this;
+	}
+	Point operator++(int)
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
+
+	}
 
 
 
@@ -110,14 +124,15 @@ public:
 
 };
 
+double distance(const Point& A, const Point& B);
+double operator-(const Point& left, const Point& right);
+Point operator+(const Point& left, const Point& right);
+
 //#define STRUCT_POINT
 //#define DISTANCE
 //#define CONSTRUCTORS_CHECK
 //#define ASSIGNMENT_CHECK_1
-#define ASSIGNMENT_CHECK_2
-
-double distance(const Point& A, const Point& B);
-
+//#define ASSIGNMENT_CHECK_2
 
 void main()
 {
@@ -191,17 +206,64 @@ void main()
 	C = B; // CopyAssingment (присваивание)
 #endif
 
+#ifdef ASSIGNMENT_CHECK_2
 	int a, b, c;
 	a = b = c = 0;
 	cout << a << "\t" << b << "\t" << c << endl;
 
 	Point A, B, C;
+	cout << delimiter << endl;
 	A = B = C = Point(2, 3);
+	cout << delimiter << endl;
+#endif
 
+	int a = 2;
+	int b = 3;
+	int c = a + b;
+
+
+
+	Point A(2, 3);
+	Point B(7, 8);
+	A.print();
+	B.print();
+
+	Point C = A + B;
+	C.print();
+
+	Point D = C++;
+	C.print();
+	D.print();
+
+
+	
+	cout << A - B << endl; //Неявный вызов оператора - для объектов класса Point
+	cout << operator-(A, B) << endl; // Явный вызов
 
 
 }
 
+
+
+
+Point operator+(const Point& left, const Point& right)
+{
+	Point result;
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+	return result;
+
+}
+
+
+double operator-(const Point& left, const Point& right)
+{
+	/*double x_distance = left.get_x() - right.get_x();
+	double y_distance = left.get_y() - right.get_y();
+	return sqrt(x_distance * x_distance + y_distance * y_distance);*/
+
+	return sqrt(pow(left.get_x() - right.get_x(), 2) + pow(left.get_y() - right.get_y(), 2));
+}
 
 
 
