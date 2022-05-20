@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 
 
@@ -93,7 +93,7 @@ public:
 
 	}
 
-	//Methods
+	
 	void Print()
 	{
 		if (integer != 0)cout << integer << "(" << numerator << "/" << denominator << ")" << endl;
@@ -272,10 +272,10 @@ void main()
 	//A.set_integer(2);
 	A.set_numerator(3);
 	A.set_denominator(4);
-	cout << "Äðîáü À = "; A.Print();
+	cout << "Ð”Ñ€Ð¾Ð±ÑŒ Ð = "; A.Print();
 
 	Fraction B(5, 8);
-	cout << "Äðîáü B = "; B.Print();
+	cout << "Ð”Ñ€Ð¾Ð±ÑŒ B = "; B.Print();
 
 	cout << delimiter << endl;
 
@@ -285,30 +285,30 @@ void main()
 	cout << delimiter << endl;
 
 	Fraction D = C;
-	cout << "Êîïèðîâàíèå = "; D.Print();
+	cout << "ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ = "; D.Print();
 
 	cout << delimiter << endl;
 
 	Fraction E;
 	E = D;
-	cout << "Ïðèñâàèâàíèå = "; E.Print();
+	cout << "ÐŸÑ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ðµ = "; E.Print();
 
 	cout << delimiter << endl;
 
 	E++;
-	cout << "Èíêðåìåíò = "; E.Print();
+	cout << "Ð˜Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚ = "; E.Print();
 
 	cout << delimiter << endl;
 
 	Fraction F = A * B;
-	cout << "Óìíîæåíèå = "; F.Print();
+	cout << "Ð£Ð¼Ð½Ð¾Ð¶ÐµÐ½Ð¸Ðµ = "; F.Print();
 
 	cout << delimiter << endl;
 
 	Fraction G = A / B;
-	cout << "Äåëåíèå = "; G.Print();
+	cout << "Ð”ÐµÐ»ÐµÐ½Ð¸Ðµ = "; G.Print();
 
-
+	
 
 
 
