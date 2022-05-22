@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 using namespace std;
 
 #define delimiter "\n------------------------------------------\n"
@@ -498,8 +498,8 @@ void main()
 
 	Fraction A(1, 2, 9);
 	Fraction B(3, 8, 15);
-	cout << "Äðîáü À = "; A.print();
-	cout << "Äðîáü Â = "; B.print();
+	cout << "Ð”Ñ€Ð¾Ð±ÑŒ Ð = "; A.print();
+	cout << "Ð”Ñ€Ð¾Ð±ÑŒ Ð’ = "; B.print();
 	cout << delimiter;
 
 	Fraction C = A + B;
@@ -521,15 +521,15 @@ void main()
 	cout << delimiter;
 
 	++E;
-	cout << "Ïðåôåêñíûé èíêðåìåíò E = "; E.print();
+	cout << "ÐŸÑ€ÐµÑ„ÐµÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚ E = "; E.print();
 	E++;
-	cout << "Ïîñòôèêñíûé èíêðåìåíò E = "; E.print();
+	cout << "ÐŸÐ¾ÑÑ‚Ñ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚ E = "; E.print();
 	cout << delimiter;
 
 	--F;
-	cout << "Ïðåôåêñíûé äåêðåìåíò F = "; F.print();
+	cout << "ÐŸÑ€ÐµÑ„ÐµÐºÑÐ½Ñ‹Ð¹ Ð´ÐµÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚ F = "; F.print();
 	F--;
-	cout << "Ïîñòôèêñíûé äåêðåìåíò F = "; F.print();
+	cout << "ÐŸÐ¾ÑÑ‚Ñ„Ð¸ÐºÑÐ½Ñ‹Ð¹ Ð´ÐµÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚ F = "; F.print();
 	cout << delimiter;
 
 	Fraction G(1, 4, 7);
@@ -563,42 +563,42 @@ void main()
 
 	if (A == B)
 	{
-		cout << "À è Â ðàâíû" << endl;
+		cout << "Ð Ð¸ Ð’ Ñ€Ð°Ð²Ð½Ñ‹" << endl;
 	}
-	else cout << "À è Â íå ðàâíû" << endl;
+	else cout << "Ð Ð¸ Ð’ Ð½Ðµ Ñ€Ð°Ð²Ð½Ñ‹" << endl;
 
 	if (A != B)
 	{
-		cout << "À è Â íå ðàâíû" << endl;
+		cout << "Ð Ð¸ Ð’ Ð½Ðµ Ñ€Ð°Ð²Ð½Ñ‹" << endl;
 	}
-	else cout << "À è Â ðàâíû" << endl;
+	else cout << "Ð Ð¸ Ð’ Ñ€Ð°Ð²Ð½Ñ‹" << endl;
 
 
 	if (A > B)
 	{
-		cout << "À áîëüøå Â" << endl;
+		cout << "Ð Ð±Ð¾Ð»ÑŒÑˆÐµ Ð’" << endl;
 	}
-	else cout << "À íå áîëüøå Â" << endl;
+	else cout << "Ð Ð½Ðµ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð’" << endl;
 
 
 	if (A < B)
 	{
-		cout << "À ìåíüøå Â" << endl;
+		cout << "Ð Ð¼ÐµÐ½ÑŒÑˆÐµ Ð’" << endl;
 	}
-	else cout << "À íå ìåíüøå Â" << endl;
+	else cout << "Ð Ð½Ðµ Ð¼ÐµÐ½ÑŒÑˆÐµ Ð’" << endl;
 
 
 	if (A >= B)
 	{
-		cout << "À áîëüøå èëè ðàâíî Â" << endl;
+		cout << "Ð Ð±Ð¾Ð»ÑŒÑˆÐµ Ð¸Ð»Ð¸ Ñ€Ð°Ð²Ð½Ð¾ Ð’" << endl;
 	}
-	else cout << "À íå áîëüøå èëè ðàâíî Â" << endl;
+	else cout << "Ð Ð½Ðµ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð¸Ð»Ð¸ Ñ€Ð°Ð²Ð½Ð¾ Ð’" << endl;
 
 	if (A <= B)
 	{
-		cout << "À ìåíüøå èëè ðàâíî Â" << endl;
+		cout << "Ð Ð¼ÐµÐ½ÑŒÑˆÐµ Ð¸Ð»Ð¸ Ñ€Ð°Ð²Ð½Ð¾ Ð’" << endl;
 	}
-	else cout << "À íå ìåíüøå èëè ðàâíî Â" << endl;
+	else cout << "Ð Ð½Ðµ Ð¼ÐµÐ½ÑŒÑˆÐµ Ð¸Ð»Ð¸ Ñ€Ð°Ð²Ð½Ð¾ Ð’" << endl;
 
 
 
