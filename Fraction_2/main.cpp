@@ -4,6 +4,9 @@ using namespace std;
 #define delimiter "\n------------------------------------------\n"
 
 
+class Fraction;
+Fraction operator+(const Fraction& left, const Fraction& right);
+
 class Fraction
 {
 	int integer;
@@ -123,6 +126,12 @@ public:
 
 	}
 
+	Fraction& operator+=(const Fraction& other)
+	{
+		return *this = *this + other;
+	}
+
+
 		
 	// Methods
 
@@ -160,6 +169,7 @@ public:
 		numerator += integer * denominator;
 		integer = 0;
 	}
+
 
 	void print()const
 	{
@@ -216,11 +226,10 @@ Fraction operator+(const Fraction& left, const Fraction& right)
 		result.set_numerator(result.get_numerator() % result.get_denominator());
 	}
 	int nod_2 = NOD(result.get_numerator(), result.get_denominator());
-	if (nod_2 != 1)
+	if (nod_2 != 1 && nod_2 != 0)
 	{
 		result.set_numerator(result.get_numerator() / nod_2);
 		result.set_denominator(result.get_denominator() / nod_2);
-
 	}
 	return result;
 }
@@ -268,7 +277,6 @@ Fraction operator-(Fraction left, Fraction right)
 		{
 			result.set_numerator(result.get_numerator() / nod_3);
 			result.set_denominator(result.get_denominator() / nod_3);
-
 		}
 	}
 	else
@@ -278,7 +286,6 @@ Fraction operator-(Fraction left, Fraction right)
 		{
 			result.set_numerator(result.get_numerator() / nod_3);
 			result.set_denominator(result.get_denominator() / nod_3);
-
 		}
 	}
 
@@ -318,33 +325,30 @@ Fraction operator/(Fraction left, Fraction right)
 		left.get_numerator() * right.get_denominator(),
 		left.get_denominator() * right.get_numerator()
 	);
+
+
 }
 
 
 
-
-Fraction& operator+=(Fraction& left, Fraction& right)
-{
-	left = operator+(left, right);
-	return left;
-}
+//Fraction& operator+=(Fraction& left, Fraction& right)
+//{
+//	return left = operator+(left, right);
+//}
 
 Fraction& operator-=(Fraction& left, Fraction& right)
 {
-	left = operator-(left, right);
-	return left;
+	return left = operator-(left, right);
 }
 
 Fraction& operator*=(Fraction& left, Fraction& right)
 {
-	left = operator*(left, right);
-	return left;
+	return left = operator*(left, right);
 }
 
 Fraction& operator/=(Fraction& left, Fraction& right)
 {
-	left = operator/(left, right);
-	return left;
+	return left = operator/(left, right);
 }
 
 bool operator==(const Fraction& left, const Fraction& right)
@@ -496,8 +500,8 @@ void main()
 	A.print();
 #endif CONSTRUCTORS_CHECK
 
-	Fraction A(1, 2, 9);
-	Fraction B(3, 8, 15);
+	Fraction A(1, 1, 2);
+	Fraction B(3, 2);
 	cout << "Дробь А = "; A.print();
 	cout << "Дробь В = "; B.print();
 	cout << delimiter;
@@ -517,7 +521,7 @@ void main()
 
 	Fraction F = A / B;
 	F.to_proper();
-	cout << "F = A / B = "; F.print();
+	cout << "F = A / B = "; F.print(); //(A / B).print();
 	cout << delimiter;
 
 	++E;
@@ -532,7 +536,7 @@ void main()
 	cout << "Постфиксный декремент F = "; F.print();
 	cout << delimiter;
 
-	Fraction G(1, 4, 7);
+	Fraction G(1, 1, 2);
 	cout << "G = "; G.print();
 	G += C;
 	cout << "G += C = "; G.print();
@@ -599,6 +603,10 @@ void main()
 		cout << "А меньше или равно В" << endl;
 	}
 	else cout << "А не меньше или равно В" << endl;
+
+
+
+
 
 
 

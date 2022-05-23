@@ -7,6 +7,7 @@ using namespace std;
 
 class Fraction
 {
+
 	int integer;
 	int numerator;
 	int denominator;
@@ -100,7 +101,14 @@ public:
 		else cout << numerator << "/" << denominator << endl;
 	}
 
+
+
+
 };
+
+
+
+
 
 int NOD(int a, int b)
 {
@@ -152,93 +160,6 @@ Fraction operator+(const Fraction& left, const Fraction& right)
 	return result;
 
 
-
-	//if (left.get_denominator() == right.get_denominator())
-	//{
-	//	result.set_integer(left.get_integer() + right.get_integer());
-	//	result.set_numerator(left.get_numerator() + right.get_numerator());
-	//	result.set_denominator(left.get_denominator());
-
-	//	if (result.get_numerator() >= result.get_denominator())
-	//	{
-	//		result.set_integer(result.get_integer() + result.get_numerator() / result.get_denominator());
-	//		result.set_numerator(result.get_numerator() % result.get_denominator());
-	//	}
-	//	if (result.get_denominator() % result.get_numerator() == 0)
-	//	{
-	//		int nod = result.get_numerator();
-	//		result.set_numerator(result.get_numerator() / nod);
-	//		result.set_denominator(result.get_denominator() / nod);
-	//	}
-	//}
-
-	//if (left.get_denominator() != right.get_denominator())
-	//{
-	//	if ((left.get_denominator() % 2 != 0) || (right.get_denominator() % 2 != 0))
-	//	{
-	//		Fraction fraction_1;
-	//		Fraction fraction_2;
-	//		fraction_1.set_numerator(left.get_numerator() * right.get_denominator());
-	//		fraction_1.set_denominator(left.get_denominator() * right.get_denominator());
-	//		fraction_2.set_numerator(left.get_denominator() * right.get_numerator());
-	//		fraction_2.set_denominator(left.get_denominator() * right.get_denominator());
-	//		result.set_integer(fraction_1.get_integer() + fraction_2.get_integer());
-	//		result.set_numerator(fraction_1.get_numerator() + fraction_2.get_numerator());
-	//		result.set_denominator(fraction_1.get_denominator());
-
-	//		if (result.get_numerator() >= result.get_denominator())
-	//		{
-	//			result.set_integer(result.get_integer() + result.get_numerator() / result.get_denominator());
-	//			result.set_numerator(result.get_numerator() % result.get_denominator());
-	//		}
-	//		if (result.get_denominator() % result.get_numerator() == 0)
-	//		{
-	//			int nod = result.get_numerator();
-	//			result.set_numerator(result.get_numerator() / nod);
-	//			result.set_denominator(result.get_denominator() / nod);
-	//		}
-
-	//	}
-
-
-	//	if ((left.get_denominator() % 2 == 0) && (right.get_denominator() % 2 == 0))
-	//	{
-	//		Fraction fraction_1;
-	//		Fraction fraction_2;
-	//		int a = left.get_denominator();
-	//		int b = right.get_denominator();
-	//		int nod = NOD(a, b);
-	//		int nok = (a * b) / nod;
-	//		int add_1 = nok / a;
-	//		int add_2 = nok / b;
-	//		fraction_1.set_numerator(left.get_numerator() * add_1);
-	//		fraction_1.set_denominator(left.get_denominator() * add_1);
-	//		fraction_2.set_numerator(right.get_numerator() * add_2);
-	//		fraction_2.set_denominator(right.get_denominator() * add_2);
-	//		result.set_integer(fraction_1.get_integer() + fraction_2.get_integer());
-	//		result.set_numerator(fraction_1.get_numerator() + fraction_2.get_numerator());
-	//		result.set_denominator(fraction_1.get_denominator());
-
-	//		if (result.get_numerator() >= result.get_denominator())
-	//		{
-	//			result.set_integer(result.get_integer() + result.get_numerator() / result.get_denominator());
-	//			result.set_numerator(result.get_numerator() % result.get_denominator());
-	//		}
-	//		if (result.get_denominator() % result.get_numerator() == 0)
-	//		{
-	//			int nod = result.get_numerator();
-	//			result.set_numerator(result.get_numerator() / nod);
-	//			result.set_denominator(result.get_denominator() / nod);
-	//		}
-
-	//	}
-
-	//}
-
-	//return result;
-
-
-
 }
 
 Fraction operator*(const Fraction& left, const Fraction& right)
@@ -263,11 +184,12 @@ Fraction operator/(const Fraction& left, const Fraction& right)
 
 
 
-
-
 void main()
 {
 	setlocale(LC_ALL, "");
+
+
+
 	Fraction A;
 	//A.set_integer(2);
 	A.set_numerator(3);
@@ -308,7 +230,7 @@ void main()
 	Fraction G = A / B;
 	cout << "Деление = "; G.Print();
 
-	
+
 
 
 
