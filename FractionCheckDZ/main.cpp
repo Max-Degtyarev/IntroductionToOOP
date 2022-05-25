@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#pragma warning (disable:4326)
+#include<iostream>
 using namespace std;
 
 
@@ -58,7 +59,7 @@ public:
 		cout << "DefConstructor:\t" << this << endl;
 	}
 
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
@@ -154,6 +155,19 @@ public:
 		return old;
 
 	}
+
+
+	// Type-cast operators
+
+	explicit operator int()const
+	{
+		return integer;
+	}
+	operator double()const
+	{
+		return integer + (double)numerator / denominator;
+	}
+
 
 
 
@@ -317,19 +331,25 @@ Fraction operator/(Fraction left, Fraction right)
 
 
 
-bool operator==(Fraction left, Fraction right)
-{
-	left.to_improper();
-	right.to_improper();
-	return (left.get_numerator() * right.get_denominator() == right.get_numerator() * left.get_denominator());
-		
-}
+//bool operator==(Fraction left, Fraction right)
+//{
+//	left.to_improper();
+//	right.to_improper();
+//	return (left.get_numerator() * right.get_denominator() == right.get_numerator() * left.get_denominator());
+//		
+//}
 
+bool operator==(const Fraction& left, const Fraction& right)
+{
+	return (double)left == right;
+
+}
 
 bool operator!=(const Fraction& left, const Fraction& right)
 {
 	return !(left == right);
 }
+
 
 
 bool operator>(Fraction left, Fraction right)
@@ -504,6 +524,8 @@ void operator>>(istream& is, Fraction& obj)
 //#define CONSTRUCTORS_CHECK
 //#define DZ
 //#define INCREMETN_CHECK
+//#define TYPE_CONVERSIONS_BASE
+//#define CONVERSIONS_FROM_OTHER_TO_CLASS
 
 
 void main()
@@ -646,13 +668,42 @@ void main()
 	}
 #endif // INCREMETN_CHECK
 
+#ifdef TYPE_CONVERSIONS_BASE
 
-	Fraction A;
+	/*Fraction A;
 	cout << "Введите простую дробь: ";
 	cin >> A;
-	cout << A << endl;
+	cout << A << endl;*/
+
+
+	cout << typeid(7 / .2).name();
+	int a = 2; //No conversion
+	double b = 3; //Conversion from less to more
+	int c = b; //Conversion more to less without data loss
+	int d = 5.5; //Conversion more to less with data loss
+
+#endif // TYPE_CONVERSIONS_BASE
+
 	
-			
+#ifdef CONVERSIONS_FROM_OTHER_TO_CLASS
+	Fraction A = 5; // Conversion fron int to Fraction
+	cout << A << endl;
+	Fraction B;
+	cout << "\n-----------------------------\n";
+	B = (Fraction)8;
+	cout << "\n-----------------------------\n";
+	cout << B << endl;
+#endif // !CONVERSIONS_FROM_OTHER_TO_CLASS
+
+
+	Fraction A(2, 3, 4);
+	int a = (int)A;
+	cout << a << endl;
+
+	double b = A;
+	cout << b << endl;
+
+	cout << (Fraction(1, 2) == Fraction(5, 11)) << endl;
 
 
 
