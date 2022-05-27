@@ -1,6 +1,7 @@
 ﻿#pragma warning (disable:4326)
 #include<iostream>
 using namespace std;
+using std::cout;
 
 
 #define delimiter "\n------------------------------------------\n"
@@ -17,7 +18,7 @@ Fraction operator/(Fraction left, Fraction right);
 class Fraction
 {
 	int integer;
-	int numerator;
+	double numerator;
 	int denominator;
 
 public:
@@ -26,7 +27,7 @@ public:
 	{
 		return integer;
 	}
-	int get_numerator() const
+	double get_numerator() const
 	{
 		return numerator;
 	}
@@ -39,7 +40,7 @@ public:
 	{
 		this->integer = integer;
 	}
-	void set_numerator(int numerator)
+	void set_numerator(double numerator)
 	{
 		this->numerator = numerator;
 	}
@@ -66,6 +67,17 @@ public:
 		this->denominator = 1;
 		cout << "1argConstructor:" << this << endl;
 	}
+
+	explicit Fraction(double integer)
+	{
+		this->integer = 0;
+		this->numerator = integer;
+		this->denominator = 1;
+		cout << "1argConstructor:" << this << endl;
+	}
+
+
+
 
 	Fraction(int numerator, int denominator)
 	{
@@ -189,8 +201,8 @@ public:
 
 	Fraction& to_proper()
 	{
-		integer += numerator / denominator;
-		numerator %= denominator;
+		integer += (double)numerator / denominator;
+		numerator = numerator - integer * denominator;
 		if (numerator)
 		{
 			int nod = NOD(numerator, denominator);
@@ -526,6 +538,7 @@ void operator>>(istream& is, Fraction& obj)
 //#define INCREMETN_CHECK
 //#define TYPE_CONVERSIONS_BASE
 //#define CONVERSIONS_FROM_OTHER_TO_CLASS
+//#define CONVERSIONS_FROM_CLASS_TO_OTHER
 
 
 void main()
@@ -696,6 +709,7 @@ void main()
 #endif // !CONVERSIONS_FROM_OTHER_TO_CLASS
 
 
+#ifdef CONVERSIONS_FROM_CLASS_TO_OTHER
 	Fraction A(2, 3, 4);
 	int a = (int)A;
 	cout << a << endl;
@@ -704,6 +718,18 @@ void main()
 	cout << b << endl;
 
 	cout << (Fraction(1, 2) == Fraction(5, 11)) << endl;
+#endif // CONVERSIONS_FROM_CLASS_TO_OTHER
+
+
+	Fraction A = Fraction(0.75);
+	for (int i = 0; i < 2; i++)
+	{
+		A.set_numerator(A.get_numerator() * 10);
+		A.set_denominator(A.get_denominator() * 10);
+	}
+	A.to_proper();
+	cout << A << endl;
+
 
 
 
