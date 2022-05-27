@@ -13,12 +13,10 @@ Fraction operator-(const Fraction& left, const Fraction& right);
 Fraction operator*(Fraction left, Fraction right);
 Fraction operator/(Fraction left, Fraction right);
 
-
-
 class Fraction
 {
 	int integer;
-	double numerator;
+	int numerator;
 	int denominator;
 
 public:
@@ -68,12 +66,41 @@ public:
 		cout << "1argConstructor:" << this << endl;
 	}
 
-	explicit Fraction(double integer)
+	//explicit Fraction(double decimal)
+	//{
+	//	decimal += 1e-10;
+	//	/*this->integer = 0;
+	//	this->numerator = decimal;
+	//	this->denominator = 1;*/
+	//	integer = decimal;	//Сохраняем целую часть десятичной дроби
+	//	decimal -= integer;	//Убираем сохраненную целую часть из десятичной дроби
+	//	//Теперь нужно посчитать количество разрядов в дробной части:
+	//	numerator = 0;
+	//	int i = 0;
+	//	int digit = 0;	//старший дробный разряд
+	//	for (; decimal && i < 9; i++)
+	//	{
+	//		numerator *= 10;	//Освобождаем младшую цифру для следующего дробного разряда
+	//		decimal *= 10;		//Сдвигаем запятую на один разряд вправо
+	//		digit = decimal;
+	//		numerator += digit;
+	//		decimal -= digit;
+	//	}
+	//	denominator = pow(10, i);
+	//	cout << "1argConstructor:" << this << endl;
+	//}
+
+	Fraction(double decimal)
 	{
-		this->integer = 0;
-		this->numerator = integer;
-		this->denominator = 1;
-		cout << "1argConstructor:" << this << endl;
+		decimal += 1e-10;
+		integer = decimal;
+		decimal -= integer;
+		denominator = 1e+9;
+		numerator = decimal * denominator;
+		reduce();
+		cout << "ConstructorDBL:\t" << this << endl;
+
+
 	}
 
 
@@ -168,6 +195,16 @@ public:
 
 	}
 
+	Fraction& operator()(int integer, int numerator, int denominator)
+	{
+		set_integer(integer);
+		set_numerator(numerator);
+		set_denominator(denominator);
+		return *this;
+
+	}
+
+
 
 	// Type-cast operators
 
@@ -201,9 +238,10 @@ public:
 
 	Fraction& to_proper()
 	{
-		integer += (double)numerator / denominator;
-		numerator = numerator - integer * denominator;
-		if (numerator)
+		integer += numerator / denominator;
+		//numerator = numerator - integer * denominator;
+		numerator %= denominator;
+		/*if (numerator)
 		{
 			int nod = NOD(numerator, denominator);
 			if (nod != 1 && nod != 0)
@@ -211,7 +249,7 @@ public:
 				numerator /= nod;
 				denominator /= nod;
 			}
-		}
+		}*/
 		return *this;
 	}
 
@@ -232,6 +270,34 @@ public:
 		inverted.denominator = buffer;
 		return inverted;
 	}
+
+	Fraction& reduce()
+	{
+		int more, less, rest;
+		if (numerator > denominator)
+		{
+			more = numerator;
+			less = denominator;
+		}
+		else
+		{
+			less = numerator;
+			more = denominator;
+		}
+
+		do
+		{
+			rest = more % less;
+			more = less;
+			less = rest;
+		} while (rest);
+		int GCD = more; // GCD - greatest common diviser
+		if (GCD == 0)return *this;
+		numerator /= GCD;
+		denominator /= GCD;
+		return *this;
+	}
+
 
 
 	void print()const
@@ -353,7 +419,7 @@ Fraction operator/(Fraction left, Fraction right)
 
 bool operator==(const Fraction& left, const Fraction& right)
 {
-	return (double)left == right;
+	return (double)left == (double)right;
 
 }
 
@@ -408,6 +474,41 @@ ostream& operator<<(ostream& os, const Fraction& obj)
 
 }
 
+istream& operator>>(istream& is, Fraction& obj)
+{
+	const int SIZE = 256;
+	char buffer[SIZE] = {};
+	//cin >> buffer;
+	cin.getline(buffer, SIZE);
+	char delimiters[] = "()/ ";
+	char* sz_numbers[3] = {}; //Массив строк, который будет хранить числа в строковом формате
+	//sz - string zero (строка заканчивающася нулем)
+	int i = 0; // Счетчик цикла
+	for (char* pch = strtok(buffer, delimiters); pch; pch = strtok(NULL, delimiters))
+	{
+		sz_numbers[i++] = pch;
+	}
+	obj = Fraction(); //Обнуляем объект (сбрасываем его в объект по умолчанию)
+	switch (i)
+	{
+	case 1: obj.set_integer(atoi(sz_numbers[0])); break;
+		// atoi() - ASCII-string to integer - переводит строку в число
+	case 2:
+		obj.set_numerator(atoi(sz_numbers[0]));
+		obj.set_denominator(atoi(sz_numbers[1]));
+		break;
+	case 3:
+		obj.set_integer(atoi(sz_numbers[0]));
+		obj.set_numerator(atoi(sz_numbers[1]));
+		obj.set_denominator(atoi(sz_numbers[2]));
+
+	}
+	return is;
+
+
+}
+
+
 
 int StringLength(const char str[])
 {
@@ -416,119 +517,119 @@ int StringLength(const char str[])
 	return i;
 }
 
-void operator>>(istream& is, Fraction& obj)
-{
-	char str[20] = {};
-	cin.getline(str, 20);
-	int length = StringLength(str);
-	bool slash = false;
-	bool space = false;
-	bool bracket = false;
-	int a;
-	int z;
-	int q;
-	for (int i = 0; i <= length; i++)
-	{
-		if (str[i] == '/')
-		{
-			slash = true;
-			a = i;
-		}
-		else if (str[i] == ' ')
-		{
-			space = true;
-			z = i;
-		}
-		else if (str[i] == '(')
-		{
-			bracket = true;
-			q = i;
-		}
-	}
-
-	if (slash == true && space == false && bracket == false)
-	{
-		int b = 0;
-		for (int i = 0; i < a; i++)
-		{
-			b += str[i] - 48;
-			b *= 10;
-		}
-		obj.set_numerator(b / 10);
-		int c = 0;
-		for (int i = a + 1; str[i] != 0; i++)
-		{
-			c += str[i] - 48;
-			c *= 10;
-		}
-		obj.set_denominator(c / 10);
-	}
-
-	if (slash == false && space == false && bracket == false)
-	{
-		int c = 0;
-		for (int i = 0; str[i] != 0; i++)
-		{
-			c += str[i] - 48;
-			c *= 10;
-		}
-		obj.set_integer(c / 10);
-	}
-
-	if (slash == true && space == false && bracket == true)
-	{
-		int c = 0;
-		for (int i = 0; i < q; i++)
-		{
-			c += str[i] - 48;
-			c *= 10;
-		}
-		obj.set_integer(c / 10);
-
-		int d = 0;
-		for (int i = q + 1; i < a; i++)
-		{
-			d += str[i] - 48;
-			d *= 10;
-		}
-		obj.set_numerator(d / 10);
-
-		int e = 0;
-		for (int i = a + 1; i < (length - 1); i++)
-		{
-			e += str[i] - 48;
-			e *= 10;
-		}
-		obj.set_denominator(e / 10);
-	}
-
-	if (slash == true && space == true && bracket == false)
-	{
-		int c = 0;
-		for (int i = 0; i < z; i++)
-		{
-			c += str[i] - 48;
-			c *= 10;
-		}
-		obj.set_integer(c / 10);
-
-		int d = 0;
-		for (int i = z + 1; i < a; i++)
-		{
-			d += str[i] - 48;
-			d *= 10;
-		}
-		obj.set_numerator(d / 10);
-
-		int e = 0;
-		for (int i = a + 1; i < length; i++)
-		{
-			e += str[i] - 48;
-			e *= 10;
-		}
-		obj.set_denominator(e / 10);
-	}
-}
+//void operator>>(istream& is, Fraction& obj)
+//{
+//	char str[20] = {};
+//	cin.getline(str, 20);
+//	int length = StringLength(str);
+//	bool slash = false;
+//	bool space = false;
+//	bool bracket = false;
+//	int a;
+//	int z;
+//	int q;
+//	for (int i = 0; i <= length; i++)
+//	{
+//		if (str[i] == '/')
+//		{
+//			slash = true;
+//			a = i;
+//		}
+//		else if (str[i] == ' ')
+//		{
+//			space = true;
+//			z = i;
+//		}
+//		else if (str[i] == '(')
+//		{
+//			bracket = true;
+//			q = i;
+//		}
+//	}
+//
+//	if (slash == true && space == false && bracket == false)
+//	{
+//		int b = 0;
+//		for (int i = 0; i < a; i++)
+//		{
+//			b += str[i] - 48;
+//			b *= 10;
+//		}
+//		obj.set_numerator(b / 10);
+//		int c = 0;
+//		for (int i = a + 1; str[i] != 0; i++)
+//		{
+//			c += str[i] - 48;
+//			c *= 10;
+//		}
+//		obj.set_denominator(c / 10);
+//	}
+//
+//	if (slash == false && space == false && bracket == false)
+//	{
+//		int c = 0;
+//		for (int i = 0; str[i] != 0; i++)
+//		{
+//			c += str[i] - 48;
+//			c *= 10;
+//		}
+//		obj.set_integer(c / 10);
+//	}
+//
+//	if (slash == true && space == false && bracket == true)
+//	{
+//		int c = 0;
+//		for (int i = 0; i < q; i++)
+//		{
+//			c += str[i] - 48;
+//			c *= 10;
+//		}
+//		obj.set_integer(c / 10);
+//
+//		int d = 0;
+//		for (int i = q + 1; i < a; i++)
+//		{
+//			d += str[i] - 48;
+//			d *= 10;
+//		}
+//		obj.set_numerator(d / 10);
+//
+//		int e = 0;
+//		for (int i = a + 1; i < (length - 1); i++)
+//		{
+//			e += str[i] - 48;
+//			e *= 10;
+//		}
+//		obj.set_denominator(e / 10);
+//	}
+//
+//	if (slash == true && space == true && bracket == false)
+//	{
+//		int c = 0;
+//		for (int i = 0; i < z; i++)
+//		{
+//			c += str[i] - 48;
+//			c *= 10;
+//		}
+//		obj.set_integer(c / 10);
+//
+//		int d = 0;
+//		for (int i = z + 1; i < a; i++)
+//		{
+//			d += str[i] - 48;
+//			d *= 10;
+//		}
+//		obj.set_numerator(d / 10);
+//
+//		int e = 0;
+//		for (int i = a + 1; i < length; i++)
+//		{
+//			e += str[i] - 48;
+//			e *= 10;
+//		}
+//		obj.set_denominator(e / 10);
+//	}
+//}
 
 
 
@@ -539,6 +640,7 @@ void operator>>(istream& is, Fraction& obj)
 //#define TYPE_CONVERSIONS_BASE
 //#define CONVERSIONS_FROM_OTHER_TO_CLASS
 //#define CONVERSIONS_FROM_CLASS_TO_OTHER
+//#define DZ_2
 
 
 void main()
@@ -678,7 +780,7 @@ void main()
 	for (Fraction i(1, 2); i.get_integer() < 10; ++i)
 	{
 		i.print();
-	}
+}
 #endif // INCREMETN_CHECK
 
 #ifdef TYPE_CONVERSIONS_BASE
@@ -697,7 +799,7 @@ void main()
 
 #endif // TYPE_CONVERSIONS_BASE
 
-	
+
 #ifdef CONVERSIONS_FROM_OTHER_TO_CLASS
 	Fraction A = 5; // Conversion fron int to Fraction
 	cout << A << endl;
@@ -711,7 +813,7 @@ void main()
 
 #ifdef CONVERSIONS_FROM_CLASS_TO_OTHER
 	Fraction A(2, 3, 4);
-	int a = (int)A;
+	int a = A;
 	cout << a << endl;
 
 	double b = A;
@@ -721,15 +823,30 @@ void main()
 #endif // CONVERSIONS_FROM_CLASS_TO_OTHER
 
 
-	Fraction A = Fraction(0.75);
-	for (int i = 0; i < 2; i++)
+#ifdef DZ_2
+	Fraction A = 2.75;
+	;
+	/*for (int i = 0; i < 2; i++)
 	{
 		A.set_numerator(A.get_numerator() * 10);
 		A.set_denominator(A.get_denominator() * 10);
-	}
-	A.to_proper();
+	}*/
 	cout << A << endl;
 
+#endif // DZ_2
+
+
+	Fraction A = 2.75;
+	cout << "Введите простую дробь: "; cin >> A;
+	cout << A << endl;
+	cout << (double)A << endl;
+	
+	/*A.set_integer(123);
+	A.get_numerator(55);
+	A.get_denominator(77);*/
+
+	A(52, 85, 86);
+	cout << A << endl;
 
 
 
