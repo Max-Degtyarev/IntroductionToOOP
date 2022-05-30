@@ -505,7 +505,7 @@ istream& operator>>(istream& is, Fraction& obj)
 	}
 	return is;
 
-
+	
 }
 
 
