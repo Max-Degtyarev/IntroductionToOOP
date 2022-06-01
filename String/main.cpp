@@ -162,6 +162,19 @@ public:
 		
 	}
 
+	String(String&& other)
+	{
+		//MoveConstructor выполняет Shellow copy
+		this->size = other.size;
+		this->str = other.str; //Копируем адрес памяти
+		other.size = 0;
+		other.str = nullptr; //Зануляем адрес памяти в другом объекте
+		cout << "MoveConstructor:" << this << endl;
+	}
+
+
+
+
 
 	~String()
 	{
@@ -181,10 +194,23 @@ public:
 		for (int i = 0; i < size; i++)
 		{
 			this->str[i] = other.str[i];
-			cout << "CopyAssingment:\t" << this << endl;
 		}
+			cout << "CopyAssingment:\t" << this << endl;
 		return *this;
 	}
+
+	String& operator=(String&& other)
+	{
+		delete[] this->str;
+		this->size = other.size;
+		this->str = other.str;
+		other.size = 0;
+		other.str = nullptr;
+		cout << "MoveAssingment:\t" << this << endl;
+		return *this;
+
+	}
+
 
 	String& operator+=(const String& other)
 	{
@@ -203,8 +229,6 @@ public:
 		}
 		*this = cat;
 		return *this;
-
-
 	}
 
 
@@ -305,7 +329,9 @@ void main()
 	cout << str1 << endl;
 	String str2("World");
 	cout << str2 << endl;
-	String str3 = str1 + " " + str2;
+	//String str3 = str1 + str2; //Move Constructor
+	String str3;
+	str3 = str1 + str2;
 	//str3.print();
 	cout << str3 << endl;
 	str1 += str2;
@@ -314,6 +340,9 @@ void main()
 	String str4;
 	cout << "Введите строку: "; cin >> str4;
 	cout << str4 << endl;
+
+
+
 
 
 
