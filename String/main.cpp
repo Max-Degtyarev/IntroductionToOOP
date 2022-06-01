@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 //class String
@@ -107,10 +107,13 @@ using namespace std;
 //}
 
 
+class String;
+String operator+(const String& left, const String& right);
+
 class String
 {
-	int size; // Размер строки в байтах
-	char* str; // Укзаьель на строку
+	int size; // Р Р°Р·РјРµСЂ СЃС‚СЂРѕРєРё РІ Р±Р°Р№С‚Р°С…
+	char* str; // РЈРєР·Р°С‚РµР»СЊ РЅР° СЃС‚СЂРѕРєСѓ
 public:
 	int get_size()const
 	{
@@ -183,6 +186,30 @@ public:
 		return *this;
 	}
 
+	String& operator+=(const String& other)
+	{
+		//return *this = *this + " " + other;
+		
+
+		String cat(this->size + other.size - 1);
+		for (int i = 0; i < this->size; i++)
+		{
+			cat[i] = this->str[i];
+		}
+		
+		for (int i = 0; i < other.size; i++)
+		{
+			cat[i + this->size - 1] = other[i];
+		}
+		*this = cat;
+		return *this;
+
+
+	}
+
+
+
+
 
 	char operator[](int i) const
 	{
@@ -207,12 +234,9 @@ public:
 	}
 
 
-
-
-
 };
 
-//Конкатенация строк
+//РљРѕРЅРєР°С‚РµРЅР°С†РёСЏ СЃС‚СЂРѕРє
 String operator+(const String& left, const String& right)
 {
 	String cat(left.get_size() + right.get_size() - 1);
@@ -221,7 +245,7 @@ String operator+(const String& left, const String& right)
 		cat[i] = left[i];
 		//cat.get_str()[i] = left.get_str()[i];
 	}
-	// Правую строку копируем со смещением вправо на размер левой строки
+	// РџСЂР°РІСѓСЋ СЃС‚СЂРѕРєСѓ РєРѕРїРёСЂСѓРµРј СЃРѕ СЃРјРµС‰РµРЅРёРµРј РІРїСЂР°РІРѕ РЅР° СЂР°Р·РјРµСЂ Р»РµРІРѕР№ СЃС‚СЂРѕРєРё
 	for (int i = 0; i < right.get_size(); i++)
 	{
 		cat[i + left.get_size() - 1] = right[i];
@@ -230,11 +254,25 @@ String operator+(const String& left, const String& right)
 	return cat;
 }
 
-std::ostream& operator<<(std::ostream& os, const String& obj)
+
+ostream& operator<<(ostream& os, const String& obj)
 {
 	return os << obj.get_str();
 
 }
+
+
+istream& operator>>(istream& is, String& obj)
+{
+	const int SIZE = 256;
+	char buffer[SIZE] = {};
+	cin.getline(buffer, SIZE);
+	obj = buffer;
+	return is;
+
+}
+
+
 
 
 //#define CONSTRUCTORS_CHECK
@@ -270,6 +308,13 @@ void main()
 	String str3 = str1 + " " + str2;
 	//str3.print();
 	cout << str3 << endl;
+	str1 += str2;
+	cout << str1 << endl;
+
+	String str4;
+	cout << "Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ: "; cin >> str4;
+	cout << str4 << endl;
+
 
 
 
