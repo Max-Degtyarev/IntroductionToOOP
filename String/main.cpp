@@ -300,7 +300,7 @@ istream& operator>>(istream& is, String& obj)
 
 
 //#define CONSTRUCTORS_CHECK
-
+//#define MOVE_METHODS_CHECK
 
 void main()
 {
@@ -325,6 +325,7 @@ void main()
 
 #endif // CONSTRUCTORS_CHECK
 
+#ifdef MOVE_METHODS_CHECK
 	String str1 = "Hello";
 	cout << str1 << endl;
 	String str2("World");
@@ -336,10 +337,26 @@ void main()
 	cout << str3 << endl;
 	str1 += str2;
 	cout << str1 << endl;
-
 	String str4;
 	cout << "Введите строку: "; cin >> str4;
 	cout << str4 << endl;
+#endif // MOVE_METHODS_CHECK
+
+	String str1;
+	str1.print();
+	String str2(55);
+	String str3 = "Hello";
+	String str4 = str3;
+	String str5;
+	str5 = str4;
+	str5.print();
+	String str6(); // Здесь НЕ вызывается никаких конструкторов
+					// Здесь объявляется функция str6()
+	String str7{}; // Явный вызов конструктора по умолчанию
+	str7.print();
+
+
+
 
 
 
