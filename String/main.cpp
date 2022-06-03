@@ -137,7 +137,7 @@ public:
 
 	}
 
-	String(const char* str):size(strlen(str) + 1), str(new char[size]{})
+	String(const char* str):String(strlen(str) + 1)
 	{
 		//this->size = strlen(str) + 1;
 		//this->str = new char[size] {};
@@ -149,15 +149,15 @@ public:
 
 	}
 
-	String(const String& other):size(other.size), str(new char[size]{})
+	String(const String& other): String(other.str)
 	{
 		//this->size = other.size;
 		//this->str = new char[size] {};
-		for (int i = 0; i < size; i++)
+		/*for (int i = 0; i < size; i++)
 		{
 			this->str[i] = other.str[i];
 
-		}
+		}*/
 		cout << "CopyConstructor:" << this << endl;
 		
 	}
@@ -300,8 +300,8 @@ istream& operator>>(istream& is, String& obj)
 
 
 //#define CONSTRUCTORS_CHECK
-//#define MOVE_METHODS_CHECK
-//#define CALLING CONSTRUCTORS
+#define MOVE_METHODS_CHECK
+//#define CALLING_CONSTRUCTORS
 
 void main()
 {
@@ -338,12 +338,12 @@ void main()
 	cout << str3 << endl;
 	str1 += str2;
 	cout << str1 << endl;
-	String str4;
-	cout << "Введите строку: "; cin >> str4;
+	String str4 = str3;
+	//cout << "Введите строку: "; cin >> str4;
 	cout << str4 << endl;
 #endif // MOVE_METHODS_CHECK
 
-#ifdef CALLING CONSTRUCTORS
+#ifdef CALLING_CONSTRUCTORS
 	String str1;
 	str1.print();
 	String str2(55);
@@ -361,7 +361,7 @@ void main()
 
 
 	
-
+	
 
 
 
