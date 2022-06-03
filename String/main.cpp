@@ -129,18 +129,18 @@ public:
 	}
 
 	// Constructors
-	explicit String(int size = 80)
+	explicit String(int size = 80):size(size), str(new char [size]{})
 	{
-		this->size = size;
+		//this->size = size;
 		this->str = new char[size] {};
 		cout << "DefConstructor:\t" << this << endl;
 
 	}
 
-	String(const char* str)
+	String(const char* str):size(strlen(str) + 1), str(new char[size]{})
 	{
-		this->size = strlen(str) + 1;
-		this->str = new char[size] {};
+		//this->size = strlen(str) + 1;
+		//this->str = new char[size] {};
 		for (int i = 0; i < size; i++)
 		{
 			this->str[i] = str[i];
@@ -149,10 +149,10 @@ public:
 
 	}
 
-	String(const String& other)
+	String(const String& other):size(other.size), str(new char[size]{})
 	{
-		this->size = other.size;
-		this->str = new char[size] {};
+		//this->size = other.size;
+		//this->str = new char[size] {};
 		for (int i = 0; i < size; i++)
 		{
 			this->str[i] = other.str[i];
@@ -162,11 +162,11 @@ public:
 		
 	}
 
-	String(String&& other)
+	String(String&& other) :size(other.size), str(other.str)
 	{
-		//MoveConstructor выполняет Shellow copy
-		this->size = other.size;
-		this->str = other.str; //Копируем адрес памяти
+		//MoveConstructor выполняет Shallow copy
+		//this->size = other.size;
+		//this->str = other.str; //Копируем адрес памяти
 		other.size = 0;
 		other.str = nullptr; //Зануляем адрес памяти в другом объекте
 		cout << "MoveConstructor:" << this << endl;
@@ -301,6 +301,7 @@ istream& operator>>(istream& is, String& obj)
 
 //#define CONSTRUCTORS_CHECK
 //#define MOVE_METHODS_CHECK
+//#define CALLING CONSTRUCTORS
 
 void main()
 {
@@ -342,6 +343,7 @@ void main()
 	cout << str4 << endl;
 #endif // MOVE_METHODS_CHECK
 
+#ifdef CALLING CONSTRUCTORS
 	String str1;
 	str1.print();
 	String str2(55);
@@ -355,8 +357,12 @@ void main()
 	String str7{}; // Явный вызов конструктора по умолчанию
 	str7.print();
 
+#endif // CALLING CONSTRUCTORS
+
 
 	
+
+
 
 
 
