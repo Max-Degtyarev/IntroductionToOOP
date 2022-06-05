@@ -461,15 +461,6 @@ bool operator>=(const Fraction& left, const Fraction& right)
 
 ostream& operator<<(ostream& os, const Fraction& obj)
 {
-	/*if (obj.get_integer()) os << obj.get_integer();
-	if (obj.get_numerator())
-	{
-		if (obj.get_integer()) os << "(";
-		os << obj.get_numerator() << "/" << obj.get_denominator();
-		if (obj.get_integer()) os << ")";
-	}
-	if (obj.get_integer() == 0 && obj.get_numerator() == 0) os << 0;
-	return os;*/
 	return obj.print(os);
 
 }
@@ -516,120 +507,6 @@ int StringLength(const char str[])
 	for (; str[i] != 0; i++);
 	return i;
 }
-
-//void operator>>(istream& is, Fraction& obj)
-//{
-//	char str[20] = {};
-//	cin.getline(str, 20);
-//	int length = StringLength(str);
-//	bool slash = false;
-//	bool space = false;
-//	bool bracket = false;
-//	int a;
-//	int z;
-//	int q;
-//	for (int i = 0; i <= length; i++)
-//	{
-//		if (str[i] == '/')
-//		{
-//			slash = true;
-//			a = i;
-//		}
-//		else if (str[i] == ' ')
-//		{
-//			space = true;
-//			z = i;
-//		}
-//		else if (str[i] == '(')
-//		{
-//			bracket = true;
-//			q = i;
-//		}
-//	}
-//
-//	if (slash == true && space == false && bracket == false)
-//	{
-//		int b = 0;
-//		for (int i = 0; i < a; i++)
-//		{
-//			b += str[i] - 48;
-//			b *= 10;
-//		}
-//		obj.set_numerator(b / 10);
-//		int c = 0;
-//		for (int i = a + 1; str[i] != 0; i++)
-//		{
-//			c += str[i] - 48;
-//			c *= 10;
-//		}
-//		obj.set_denominator(c / 10);
-//	}
-//
-//	if (slash == false && space == false && bracket == false)
-//	{
-//		int c = 0;
-//		for (int i = 0; str[i] != 0; i++)
-//		{
-//			c += str[i] - 48;
-//			c *= 10;
-//		}
-//		obj.set_integer(c / 10);
-//	}
-//
-//	if (slash == true && space == false && bracket == true)
-//	{
-//		int c = 0;
-//		for (int i = 0; i < q; i++)
-//		{
-//			c += str[i] - 48;
-//			c *= 10;
-//		}
-//		obj.set_integer(c / 10);
-//
-//		int d = 0;
-//		for (int i = q + 1; i < a; i++)
-//		{
-//			d += str[i] - 48;
-//			d *= 10;
-//		}
-//		obj.set_numerator(d / 10);
-//
-//		int e = 0;
-//		for (int i = a + 1; i < (length - 1); i++)
-//		{
-//			e += str[i] - 48;
-//			e *= 10;
-//		}
-//		obj.set_denominator(e / 10);
-//	}
-//
-//	if (slash == true && space == true && bracket == false)
-//	{
-//		int c = 0;
-//		for (int i = 0; i < z; i++)
-//		{
-//			c += str[i] - 48;
-//			c *= 10;
-//		}
-//		obj.set_integer(c / 10);
-//
-//		int d = 0;
-//		for (int i = z + 1; i < a; i++)
-//		{
-//			d += str[i] - 48;
-//			d *= 10;
-//		}
-//		obj.set_numerator(d / 10);
-//
-//		int e = 0;
-//		for (int i = a + 1; i < length; i++)
-//		{
-//			e += str[i] - 48;
-//			e *= 10;
-//		}
-//		obj.set_denominator(e / 10);
-//	}
-//}
 
 
 
@@ -845,8 +722,8 @@ void main()
 	A.get_numerator(55);
 	A.get_denominator(77);*/
 
-	A(52, 85, 86);
-	cout << A << endl;
+	//A(52, 85, 86);
+	//cout << A << endl;
 
 
 
